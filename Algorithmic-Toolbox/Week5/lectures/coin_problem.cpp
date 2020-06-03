@@ -15,22 +15,29 @@
 
 using namespace std;
 
-int f(int x, vector<int>& c)
+int f(int x, vector<int>& c, vector<int>& coins_required)
 {
     
     if(x < 0) return 1e9;
     if(x == 0) return 0;
+    if(coins_required[x] != 0) return coins_required[x];
     int u = 1e9, k = c.size();
     for (int i = 0; i < k; i++){
-        u = min(u, f(x-c[i], c)+1);
+        u = min(u, f(x-c[i], c, coins_required)+1);
     }
-    return u;
+    coins_required[x] = u;
+    return coins_required[x];
 }
 int main(void)
 {
-    vector<int> coins = {1, 3, 4};
-    int sum = 6;
-    cout << f(sum, coins);
-    
+    int no_denominations, sum;
+    vector<int> coins;
+    cin >> no_denominations >> sum;
+    vector<int> coins_required(sum+1, 0);
+    for(int i = 0, a; i < no_denominations; i++){
+        cin >> a;
+        coins.push_back(a);
+    }
+    cout << f(sum, coins, coins_required);
     return 0;
 }
