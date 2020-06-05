@@ -76,30 +76,3 @@ int main(void)
     cout << "edit_distance : " << edit;
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Intorduction : // alignment game
-// common subsequence
-// longest common subsequence
