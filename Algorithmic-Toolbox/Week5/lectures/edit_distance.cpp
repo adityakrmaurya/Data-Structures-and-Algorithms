@@ -18,16 +18,25 @@
 #include <vector>
 
 using namespace std;
+
 int min(int x, int y, int z)
 {
     
     return min(min(x, y), z);
 }
 
-int edit_distance(string& a, string& b)
+void print(vector<vector<int>>& v)
 {
-    int dp[a.length()+1][b.length()+1];
+    for(auto const& row : v){
+        for(auto const& col : row){
+            cout << col << " ";
+        }
+        cout << "\n";
+    }
+}
 
+int edit_distance(string& a, string& b, vector<vector<int>>& dp)
+{
     for(size_t i = 0; i <= a.length(); i++){
         for(size_t j = 0; j <= b.length(); j++){
             
@@ -54,14 +63,6 @@ int edit_distance(string& a, string& b)
             }
         }
     }
-    
-    // print the dp table generated
-    for(size_t i = 0; i <= a.length(); i++){
-        for(size_t j = 0; j <= b.length(); j++){
-            cout << dp[i][j] << " ";
-        }
-            cout << "\n";
-    }
     return dp[a.length()][b.length()];
 }
 
@@ -69,7 +70,9 @@ int main(void)
 {
     string a, b;
     cin >> a >> b;
-    int edit = edit_distance(a, b);
+    vector<vector<int>> dp (a.length()+1, vector<int> (b.length()+1, 0));
+    int edit = edit_distance(a, b, dp);
+    print(dp);
     cout << "edit_distance : " << edit;
     return 0;
 }
