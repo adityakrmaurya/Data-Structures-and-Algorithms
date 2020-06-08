@@ -17,7 +17,6 @@ int evaluate(int val1, char oper, int val2) {
     return (val1 / val2);
   else if (oper == '*')
     return (val1 * val2);
-
   return -1e9;
 }
 
