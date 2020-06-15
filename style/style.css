@@ -1,0 +1,68 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: Gainsboro;
+	color: #1c1c1c;
+	font-family: helvetica, sans-serif;
+}
+
+.wrapper {
+	position: relative;
+	clear: both;
+	margin: 0 auto 75px auto;
+	width: 100%;
+	overflow: hidden;
+}
+
+.top {
+	background-color: #FF4444;
+	border-top: 20px solid #CC0000;
+	height: 200px;
+	position: relative;
+	clear: both;
+}
+
+.title {
+	width: 60%;
+	margin: 40px auto 0 auto;
+	color: white;
+}
+
+.card.first {
+	position: relative;
+	clear: both;
+	margin-top: -80px;
+}
+
+.card {
+	background-color: white;
+	margin: 10px auto 10px auto;
+	width: 60%;
+	padding: 30px 50px 50px 50px;
+	font-size: 15px;
+	line-height: 18px;
+	margin-bottom: 20px;
+}
+
+@media(max-width: 777px){
+	.col-sm-12{
+		width: 100%;
+	}
+	.title{
+		font-size: 15px;
+	}
+}
+
+.date {
+	position: relative;
+	color: silver;
+	text-align: left;
+	margin: -15px auto 10px auto;	
+}
+.heading {
+	color: #FF4444;
+}
