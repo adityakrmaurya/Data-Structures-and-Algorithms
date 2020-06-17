@@ -1,68 +1,84 @@
-* {
+*{
 	box-sizing: border-box;
-}
-
-body {
-	margin: 0px;
 	padding: 0px;
+	margin: 0px;	
+}
+
+body{
 	background-color: Gainsboro;
-	color: #1c1c1c;
-	font-family: helvetica, sans-serif;
+}
+nav{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 8vh;
+	background-color: #5b4954;	
+	font-family: 'Poppins', sans-serif;
+}
+.logo{
+	color: rgb(226, 226, 226);
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	font-size: 20px;
+}
+.nav-links{
+	display: flex;
+	justify-content: space-around;
+	width: 30%;
+}
+.nav-links li{
+	list-style: none;
+}
+.nav-links a{
+	color: rgb(226, 226, 226);
+	text-decoration: none;
+	letter-spacing: 3px;
+	font-weight: bold;
+	font-size: 14px;
 }
 
-.wrapper {
-	position: relative;
-	clear: both;
-	margin: 0 auto 75px auto;
-	width: 100%;
-	overflow: hidden;
+.burger{
+	display: none;
+	cursor: pointer;
 }
 
-.top {
-	background-color: #FF4444;
-	border-top: 20px solid #CC0000;
-	height: 200px;
-	position: relative;
-	clear: both;
+.burger div{
+	width: 20px;
+	height: 3px;
+	background-color: rgb(226, 226, 226);
+	margin: 5px;
 }
 
-.title {
-	width: 60%;
-	margin: 40px auto 0 auto;
-	color: white;
-}
-
-.card.first {
-	position: relative;
-	clear: both;
-	margin-top: -80px;
-}
-
-.card {
-	background-color: white;
-	margin: 10px auto 10px auto;
-	width: 60%;
-	padding: 30px 50px 50px 50px;
-	font-size: 15px;
-	line-height: 18px;
-	margin-bottom: 20px;
-}
-
-@media(max-width: 777px){
-	.col-sm-12{
-		width: 100%;
-	}
-	.title{
-		font-size: 15px;
+@media screen and (max-width: 1024px){
+	.nav-links{
+		width: 50%;
 	}
 }
 
-.date {
-	position: relative;
-	color: silver;
-	text-align: left;
-	margin: -15px auto 10px auto;	
+@media screen and (max-width: 760px){
+	body{
+		overflow-x: hidden;
+	}
+	.nav-links{
+		position: absolute;
+		right: 0px;
+		height: 92vh;
+		top: 8vh;
+		background-color: #5b4954;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		width: 40%;
+		transform: translateX(100%);
+		transition: transform 0.5s ease-in;
+	}
+	.nav-links li{
+		opacity: 1;
+	}
+	.burger{
+		display: block;
+	}
 }
-.heading {
-	color: #FF4444;
+.nav-active{
+	transform: translateX(0%);
 }
