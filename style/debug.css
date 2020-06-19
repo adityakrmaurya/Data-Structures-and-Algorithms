@@ -1,0 +1,11 @@
+body *{
+	color: hsla(218, 100%, 100%, 0.88) !important;
+	background: hsla(210, 100%, 50%, 0.33) !important;
+	outline: 0.25rem solid hsla(218, 100%, 100%, 0.50) !important;
+}
+
+.debug-center {
+	display: flex;
+	justify-content: center;  /*horizontaly*/
+	align-items: center;  /*verticle*/
+}
