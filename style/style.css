@@ -9,7 +9,7 @@ nav{
 	align-items: center;
 	min-height: 8vh;
 	background-color: #5b4954;	
-	font-family: 'Poppins', sans-serif;
+	padding: 5px;
 }
 .logo{
 	color: rgb(226, 226, 226);
