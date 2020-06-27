@@ -1,17 +1,1 @@
-# Ignore Everything
-*
-
-# But not .cpp or .c or .h or .pdf
-!*.cpp
-!*.c
-!*.h
-!*.pdf
-!*.css
-!*.js
-!*.html
-!*.jpg
-
-# Or directories
-!*/
-!.gitignore
-!README.md
+*.out
