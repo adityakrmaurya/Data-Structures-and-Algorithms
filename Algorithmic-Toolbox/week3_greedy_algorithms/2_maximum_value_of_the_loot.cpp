@@ -29,7 +29,7 @@ double value(vector<pair<int, int>>& v, int w)
 }
 int main(void)
 {
-    int n, w;33
+    int n, w;
     cin >> n >> w;
     vector<pair<int, int>> v;
     for(int i = 0, a, b; i < n; i++){
