@@ -9,21 +9,34 @@ class Node;
 
 class Node {
 public:
-    int key;
-    Node *parent;
-    std::vector<Node *> children;
+  int key;
+  Node *parent;
+  std::vector<Node *> children;
 
-    Node() {
-      this->parent = NULL;
-    }
+  Node() { this->parent = NULL; }
 
-    void setParent(Node *theParent) {
-      parent = theParent;
-      parent->children.push_back(this);
-    }
+  void setParent(Node *theParent) {
+    parent = theParent;
+    parent->children.push_back(this);
+  }
 };
 
-
+int findHeight(std::vector<Node> &nodes, std::vector<bool> &visited,
+               std::vector<int> &height, int i) {
+  // Check if root node
+  if (nodes[i].parent == NULL) {
+    visited[i] = 1;
+    return 0;
+  }
+  // check if node is visited
+  if (visited[i]) {
+    return height[i];
+  }
+  // if not visited then visit the node and calculate its height
+  visited[i] = 1;
+  height[i] = 1 + findHeight(nodes, visited, height, (nodes[i].parent)->key);
+  return height[i];
+}
 int main_with_large_stack_space() {
   std::ios_base::sync_with_stdio(0);
   int n;
@@ -38,40 +51,38 @@ int main_with_large_stack_space() {
       nodes[child_index].setParent(&nodes[parent_index]);
     nodes[child_index].key = child_index;
   }
-
-  // Replace this code with a faster implementation
+  
   int maxHeight = 0;
-  for (int leaf_index = 0; leaf_index < n; leaf_index++) {
-    int height = 0;
-    for (Node *v = &nodes[leaf_index]; v != NULL; v = v->parent)
-      height++;
-    maxHeight = std::max(maxHeight, height);
+  std::vector<bool> visited(n, 0);
+  std::vector<int> height(n, 0);
+  for (int i = 0; i < n; i++) {
+    if (visited[i] == false) {
+      // Calculates height of node if not visited
+      height[i] = findHeight(nodes, visited, height, i);
+    }
+    // maxHeight checked
+    maxHeight = std::max(height[i], maxHeight);
   }
-    
-  std::cout << maxHeight << std::endl;
+  std::cout << maxHeight + 1 << std::endl;
   return 0;
 }
 
-int main (int argc, char **argv)
-{
+int main(int argc, char **argv) {
 #if defined(__unix__) || defined(__APPLE__)
   // Allow larger stack space
-  const rlim_t kStackSize = 16 * 1024 * 1024;   // min stack size = 16 MB
+  const rlim_t kStackSize = 16 * 1024 * 1024; // min stack size = 16 MB
   struct rlimit rl;
   int result;
 
   result = getrlimit(RLIMIT_STACK, &rl);
-  if (result == 0)
-  {
-      if (rl.rlim_cur < kStackSize)
-      {
-          rl.rlim_cur = kStackSize;
-          result = setrlimit(RLIMIT_STACK, &rl);
-          if (result != 0)
-          {
-              std::cerr << "setrlimit returned result = " << result << std::endl;
-          }
+  if (result == 0) {
+    if (rl.rlim_cur < kStackSize) {
+      rl.rlim_cur = kStackSize;
+      result = setrlimit(RLIMIT_STACK, &rl);
+      if (result != 0) {
+        std::cerr << "setrlimit returned result = " << result << std::endl;
       }
+    }
   }
 
 #endif
