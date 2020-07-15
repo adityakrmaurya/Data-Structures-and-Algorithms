@@ -4,19 +4,18 @@
 #include <cassert>
 #include <algorithm>
 
-using std::cin;
-using std::string;
-using std::vector;
-using std::cout;
-using std::max_element;
+using namespace std;
 
 class StackWithMax {
-    vector<int> stack;
-
+  vector<pair<int, int>> stack;
+  int m = -1;
   public:
 
     void Push(int value) {
-        stack.push_back(value);
+      if(value > m) {
+        m = value;
+      }
+      stack.push_back(make_pair(value, m));
     }
 
     void Pop() {
@@ -26,7 +25,7 @@ class StackWithMax {
 
     int Max() const {
         assert(stack.size());
-        return *max_element(stack.begin(), stack.end());
+        return stack.back().second;
     }
 };
 
