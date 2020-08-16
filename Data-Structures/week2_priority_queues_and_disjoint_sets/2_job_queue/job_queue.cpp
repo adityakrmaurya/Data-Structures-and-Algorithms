@@ -1,62 +1,30 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <queue>
 
-using std::vector;
-using std::cin;
-using std::cout;
-
-class JobQueue {
- private:
-  int num_workers_;
-  vector<int> jobs_;
-
-  vector<int> assigned_workers_;
-  vector<long long> start_times_;
-
-  void WriteResponse() const {
-    for (int i = 0; i < jobs_.size(); ++i) {
-      cout << assigned_workers_[i] << " " << start_times_[i] << "\n";
-    }
+using namespace std;
+typedef long long ll;
+int main(void) {
+  priority_queue<pair<ll, ll>> pq;
+  queue<ll> q;
+  ll n, m;
+  cin >> n >> m;
+  for(int i = 0, a; i < m; i++) {
+    cin >> a;
+    q.push(a);
   }
-
-  void ReadData() {
-    int m;
-    cin >> num_workers_ >> m;
-    jobs_.resize(m);
-    for(int i = 0; i < m; ++i)
-      cin >> jobs_[i];
+  pair<ll, ll> p;
+  for (int i = 0; i < n; i++) {
+    p.first = 0; // time
+    p.second = -i; // thread
+    pq.push(p);
   }
-
-  void AssignJobs() {
-    // TODO: replace this code with a faster algorithm.
-    assigned_workers_.resize(jobs_.size());
-    start_times_.resize(jobs_.size());
-    vector<long long> next_free_time(num_workers_, 0);
-    for (int i = 0; i < jobs_.size(); ++i) {
-      int duration = jobs_[i];
-      int next_worker = 0;
-      for (int j = 0; j < num_workers_; ++j) {
-        if (next_free_time[j] < next_free_time[next_worker])
-          next_worker = j;
-      }
-      assigned_workers_[i] = next_worker;
-      start_times_[i] = next_free_time[next_worker];
-      next_free_time[next_worker] += duration;
-    }
+  while (!q.empty()) {
+    p = pq.top();
+    cout << -p.second << " " << -p.first << endl; 
+    pq.pop();
+    ll value = q.front();
+    q.pop();
+    pq.push(make_pair(-value + p.first, p.second));
   }
-
- public:
-  void Solve() {
-    ReadData();
-    AssignJobs();
-    WriteResponse();
-  }
-};
-
-int main() {
-  std::ios_base::sync_with_stdio(false);
-  JobQueue job_queue;
-  job_queue.Solve();
-  return 0;
 }
+  
