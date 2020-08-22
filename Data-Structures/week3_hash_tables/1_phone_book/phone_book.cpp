@@ -1,72 +1,40 @@
 #include <iostream>
-#include <vector>
 #include <string>
 
 using std::string;
-using std::vector;
-using std::cin;
+
 
 struct Query {
-    string type, name;
-    int number;
+  string name = "not found";
+  int number = -1;
 };
 
-vector<Query> read_queries() {
-    int n;
-    cin >> n;
-    vector<Query> queries(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> queries[i].type;
-        if (queries[i].type == "add")
-            cin >> queries[i].number >> queries[i].name;
-        else
-            cin >> queries[i].number;
+void read_queries() {
+  int n;
+  std::cin >> n;
+  Query* queries = nullptr;
+  queries = new Query[10000000];
+  for (int i = 0; i < n; ++i) {
+    string type_query;
+    int phone;
+    std::cin >> type_query;
+    std::cin >> phone;
+    if (type_query == "add") {
+      queries[phone].number = phone;
+      std::cin >> queries[phone].name;
+    } 
+    else if (type_query == "del") {
+      queries[phone].number = -1;
+      queries[phone].name = "not found";
     }
-    return queries;
-}
-
-void write_responses(const vector<string>& result) {
-    for (size_t i = 0; i < result.size(); ++i)
-        std::cout << result[i] << "\n";
-}
-
-vector<string> process_queries(const vector<Query>& queries) {
-    vector<string> result;
-    // Keep list of all existing (i.e. not deleted yet) contacts.
-    vector<Query> contacts;
-    for (size_t i = 0; i < queries.size(); ++i)
-        if (queries[i].type == "add") {
-            bool was_founded = false;
-            // if we already have contact with such number,
-            // we should rewrite contact's name
-            for (size_t j = 0; j < contacts.size(); ++j)
-                if (contacts[j].number == queries[i].number) {
-                    contacts[j].name = queries[i].name;
-                    was_founded = true;
-                    break;
-                }
-            // otherwise, just add it
-            if (!was_founded)
-                contacts.push_back(queries[i]);
-        } else if (queries[i].type == "del") {
-            for (size_t j = 0; j < contacts.size(); ++j)
-                if (contacts[j].number == queries[i].number) {
-                    contacts.erase(contacts.begin() + j);
-                    break;
-                }
-        } else {
-            string response = "not found";
-            for (size_t j = 0; j < contacts.size(); ++j)
-                if (contacts[j].number == queries[i].number) {
-                    response = contacts[j].name;
-                    break;
-                }
-            result.push_back(response);
-        }
-    return result;
+    else {
+      std::cout << queries[phone].name << std::endl;
+    }
+  }
+  delete [] queries;
 }
 
 int main() {
-    write_responses(process_queries(read_queries()));
-    return 0;
+  read_queries();
+  return 0;
 }
