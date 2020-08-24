@@ -1,39 +1,59 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-
+typedef long long int ll;
 using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
 
-struct Node {
-  int key;
-  int left;
-  int right;
+ll prev = -1e18;
+bool flag = true;
+int nodes;
+vector<ll> key;
+vector<int> left;
+vector<int> right;
 
-  Node() : key(0), left(-1), right(-1) {}
-  Node(int key_, int left_, int right_) : key(key_), left(left_), right(right_) {}
-};
 
-bool IsBinarySearchTree(const vector<Node>& tree) {
-  // Implement correct algorithm here
-  return true;
+void in_order(int ind) {
+  if (ind == -1 || !flag) {
+    return;
+  }
+  in_order(left[ind]);
+  if (prev > key[ind]) {
+    flag = false;
+    return;
+  }
+  /**
+   * The node right to inorder pedecessor but left to its parent
+   * https://www.coursera.org/learn/data-structures/discussions/weeks/6/
+   * threads/QyTVc_BhEeamuwo9wEiniA/replies/AwZ3sbZ-EeiTjBLDL4RcNA
+   **/
+  else if(prev == key[ind]) {
+    if (left[ind] != -1 && key[left[ind]] == prev) {
+      flag = false;
+      return;
+    }
+  }
+  prev = key[ind];
+  in_order(right[ind]);
 }
 
 int main() {
-  int nodes;
   cin >> nodes;
-  vector<Node> tree;
-  for (int i = 0; i < nodes; ++i) {
-    int key, left, right;
-    cin >> key >> left >> right;
-    tree.push_back(Node(key, left, right));
+  for (int i = 0, l, r; i < nodes; ++i) {
+    ll k;
+    cin >> k >> l >> r;
+    key.push_back(k);
+    left.push_back(l);
+    right.push_back(r);
   }
-  if (IsBinarySearchTree(tree) {
-    cout << "CORRECT" << endl;
-  } else {
-    cout << "INCORRECT" << endl;
-  }
+  if(nodes)
+    in_order(0);
+  if (flag)
+    cout << "CORRECT";
+  else
+    cout << "INCORRECT";
+
   return 0;
 }
